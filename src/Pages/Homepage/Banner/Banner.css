@@ -1,0 +1,22 @@
+/* Styling for arrows */
+.slick-prev:before,
+.slick-next:before {
+    color: white; /* Carousel arrows color */
+    font-size: 24px; /* Adjust size for better visibility */
+}
+
+/* Styling for dots */
+.slick-dots li button:before {
+    color: white;
+    font-size: 12px; /* Adjust dot size */
+}
+
+.slick-dots li.slick-active button:before {
+    color: limegreen; /* Highlight active dot */
+    font-size: 14px; /* Slightly larger for better focus */
+}
+
+/* Slider animation */
+.slick-slide {
+    transition: all 0.5s ease-in-out;
+}

@@ -1,0 +1,24 @@
+@keyframes slide-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-down {
+    animation: slide-down 0.3s ease-out;
+}
+
+.app{
+    border: 1px solid lime;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.app:hover{
+    box-shadow: 0px 0px 10px limegreen;
+}
+
