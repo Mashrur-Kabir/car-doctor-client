@@ -23,139 +23,52 @@ const Banner = () => {
     };
 
     return (
-        <div className="relative w-full min-h-screen overflow-hidden">
+        <div className="mt-8 relative w-full min-h-screen overflow-hidden rounded-lg">
             <Slider {...settings}>
-                {/* Slide 1 */}
-                <div>
-                    <div
-                        className="min-h-screen w-full bg-cover bg-center flex items-center justify-center text-center"
-                        style={{
-                            backgroundImage: `url(${banner1})`,
-                        }}
-                    >
-                        <div className="bg-black bg-opacity-50 p-6 rounded-lg">
-                            <h1 className="font-mont text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
-                                Welcome to Car Doctor
-                            </h1>
-                            <p className="font-cant text-lg md:text-xl text-gray-200 mb-6 drop-shadow-md">
-                                The ultimate care for your car needs
-                            </p>
-                            <button className="bg-lime-500 text-black px-6 py-3 rounded-md font-semibold hover:text-white hover:bg-black transition duration-300">
-                                Explore Services
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                {/* Slides */}
+                {[banner1, banner2, banner3, banner4, banner5, banner6].map((banner, index) => (
+                    <div key={index}>
+                        <div
+                            className="min-h-screen w-full bg-cover bg-center flex items-center justify-center text-center relative"
+                            style={{
+                                backgroundImage: `url(${banner})`,
+                            }}
+                        >
+                            {/* Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-[#151515] to-[rgba(21,21,21,0)]"></div>
 
-                {/* Slide 2 */}
-                <div>
-                    <div
-                        className="min-h-screen w-full bg-cover bg-center flex items-center justify-center text-center"
-                        style={{
-                            backgroundImage: `url(${banner2})`,
-                        }}
-                    >
-                        <div className="bg-black bg-opacity-50 p-6 rounded-lg">
-                            <h1 className="font-mont text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
-                                Professional Maintenance
-                            </h1>
-                            <p className="font-cant text-lg md:text-xl text-gray-200 mb-6 drop-shadow-md">
-                                Trust us to keep your vehicle in perfect condition
-                            </p>
-                            <button className="bg-lime-500 text-black px-6 py-3 rounded-md font-semibold hover:text-white hover:bg-black transition duration-300">
-                                View Packages
-                            </button>
+                            {/* Content */}
+                            <div className="relative z-10 bg-black bg-opacity-50 p-6 rounded-lg">
+                                <h1 className="font-mont text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
+                                    {/* Dynamic headings based on slide */}
+                                    {index === 0 && "Welcome to Car Doctor"}
+                                    {index === 1 && "Professional Maintenance"}
+                                    {index === 2 && "Customer Satisfaction"}
+                                    {index === 3 && "Innovative Solutions"}
+                                    {index === 4 && "Certified Mechanics"}
+                                    {index === 5 && "Quality You Can Rely On"}
+                                </h1>
+                                <p className="font-cant text-lg md:text-xl text-gray-200 mb-6 drop-shadow-md">
+                                    {/* Dynamic descriptions based on slide */}
+                                    {index === 0 && "The ultimate care for your car needs"}
+                                    {index === 1 && "Trust us to keep your vehicle in perfect condition"}
+                                    {index === 2 && "Your happiness is our priority"}
+                                    {index === 3 && "Experience the latest in car maintenance technology"}
+                                    {index === 4 && "Trustworthy experts for all your car needs"}
+                                    {index === 5 && "Making every drive safe and comfortable"}
+                                </p>
+                                <button className="bg-lime-500 text-black px-6 py-3 rounded-md font-semibold hover:text-white hover:bg-black transition duration-300">
+                                    {index === 0 && "Explore Services"}
+                                    {index === 1 && "View Packages"}
+                                    {index === 2 && "Contact Us"}
+                                    {index === 3 && "Learn More"}
+                                    {index === 4 && "Book Appointment"}
+                                    {index === 5 && "Get Started"}
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                {/* Slide 3 */}
-                <div>
-                    <div
-                        className="min-h-screen w-full bg-cover bg-center flex items-center justify-center text-center"
-                        style={{
-                            backgroundImage: `url(${banner3})`,
-                        }}
-                    >
-                        <div className="bg-black bg-opacity-50 p-6 rounded-lg">
-                            <h1 className="font-mont text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
-                                Customer Satisfaction Guaranteed
-                            </h1>
-                            <p className="font-cant text-lg md:text-xl text-gray-200 mb-6 drop-shadow-md">
-                                Your happiness is our priority
-                            </p>
-                            <button className="bg-lime-500 text-black px-6 py-3 rounded-md font-semibold hover:text-white hover:bg-black transition duration-300">
-                                Contact Us
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                {/* Slide 4 */}
-                <div>
-                    <div
-                        className="min-h-screen w-full bg-cover bg-center flex items-center justify-center text-center"
-                        style={{
-                            backgroundImage: `url(${banner4})`,
-                        }}
-                    >
-                        <div className="bg-black bg-opacity-50 p-6 rounded-lg">
-                            <h1 className="font-mont text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
-                                Innovative Solutions
-                            </h1>
-                            <p className="font-cant text-lg md:text-xl text-gray-200 mb-6 drop-shadow-md">
-                                Experience the latest in car maintenance technology
-                            </p>
-                            <button className="bg-lime-500 text-black px-6 py-3 rounded-md font-semibold hover:text-white hover:bg-black transition duration-300">
-                                Learn More
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Slide 5 */}
-                <div>
-                    <div
-                        className="min-h-screen w-full bg-cover bg-center flex items-center justify-center text-center"
-                        style={{
-                            backgroundImage: `url(${banner5})`,
-                        }}
-                    >
-                        <div className="bg-black bg-opacity-50 p-6 rounded-lg">
-                            <h1 className="font-mont text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
-                                Certified Mechanics
-                            </h1>
-                            <p className="font-cant text-lg md:text-xl text-gray-200 mb-6 drop-shadow-md">
-                                Trustworthy experts for all your car needs
-                            </p>
-                            <button className="bg-lime-500 text-black px-6 py-3 rounded-md font-semibold hover:text-white hover:bg-black transition duration-300">
-                                Book Appointment
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                {/* Slide 6 */}
-                <div>
-                    <div
-                        className="min-h-screen w-full bg-cover bg-center flex items-center justify-center text-center"
-                        style={{
-                            backgroundImage: `url(${banner6})`,
-                        }}
-                    >
-                        <div className="bg-black bg-opacity-50 p-6 rounded-lg">
-                            <h1 className="font-mont text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
-                                Quality You Can Rely On
-                            </h1>
-                            <p className="font-cant text-lg md:text-xl text-gray-200 mb-6 drop-shadow-md">
-                                Making every drive safe and comfortable
-                            </p>
-                            <button className="bg-lime-500 text-black px-6 py-3 rounded-md font-semibold hover:text-white hover:bg-black transition duration-300">
-                                Get Started
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                ))}
             </Slider>
         </div>
     );
