@@ -1,12 +1,25 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import car from '../../../assets/icons/car.png';
 import shop from '../../../assets/icons/shop.png';
 import search from '../../../assets/icons/magnifier.png';
 import './Navbar.css';
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { user, setUser, logOut } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logOut()
+        .then(() => {
+            alert("User signed out successfully!");
+            setUser(null);
+        })
+        .catch(() => {
+            console.log("Failed to sign out!");
+        })
+    }
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -146,8 +159,17 @@ const Navbar = () => {
 
                 <div className="flex items-center gap-5">
                     <button><img className="w-6 h-6" src={shop} alt="" /></button>
-                    <button><img className="w-6 h-6" src={search} alt="" /></button>
-                    <button className="app px-4 py-2 border rounded-lg text-gray-300 hover:text-white">Appointment</button>                   
+                    <button><img className="w-6 h-6" src={search} alt="" /></button>                   
+                    {
+                        user?.email ? 
+                        <div className="flex gap-5">
+                            <button onClick={handleLogout} className="noapp px-2 py-2 border rounded-lg text-gray-300 text-sm hover:text-white">Logout</button>
+                            <NavLink to='/bookings' className="okapp px-2 py-2 border rounded-lg text-gray-300 text-sm hover:text-white">MyBookings</NavLink>
+                        </div>
+                            :                   
+                        <NavLink to='/login' className="app px-2 py-2 border rounded-lg text-gray-300 text-sm hover:text-white">Login</NavLink>
+                    }                   
+                    <NavLink to='/register' className="app px-2 py-2 border rounded-lg text-gray-300 text-sm hover:text-white">Register</NavLink>                   
                 </div>
             </div>
         </nav>

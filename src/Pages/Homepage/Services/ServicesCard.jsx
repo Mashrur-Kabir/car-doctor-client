@@ -1,8 +1,9 @@
 import { TiArrowRightThick } from "react-icons/ti";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const ServicesCard = ({ service }) => {
-  const { title, img, price } = service;
+  const { _id, title, img, price } = service;
 
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden border group">
@@ -23,10 +24,12 @@ const ServicesCard = ({ service }) => {
         </p>
 
         {/* Arrow Icon */}
-        <div className="flex justify-end">
-          <button className="flex items-center border-2 border-green-500 rounded-md px-1">
-            <p className="font-cant mr-1 font-bold text-lime-500 hover:text-green-600 text-sm">Buy</p> <TiArrowRightThick className="text-lime-500 text-2xl hover:text-green-600 transition duration-150" />
-          </button>
+        <div className="flex justify-end mt-2">
+          <Link to={`/checkout/${_id}`}>
+            <button className="flex items-center border-2 border-green-500 rounded-md px-1">
+              <p className="font-cant mr-1 font-bold text-lime-500 hover:text-green-600 text-sm">Book</p> <TiArrowRightThick className="text-lime-500 text-2xl hover:text-green-600 transition duration-150" />
+            </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -38,6 +41,7 @@ ServicesCard.propTypes = {
     title: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
   }),
 };
 

@@ -1,12 +1,32 @@
 import Lottie from "lottie-react";
 import registerAni from '../../assets/animations/registerAni.json';
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Register = () => {
+
+  const { createUser } = useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
     // Handle registration logic here
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(name, email, password);
+
+    //call firebase methods
+    createUser(email, password)
+    .then(result => {
+        const user = result.user;
+        console.log("User created successfully:", user);
+    })
+    // Handle errors
+    .catch(error => {
+        console.error("Error creating user:", error);
+    });
   }
 
   return (
@@ -22,6 +42,7 @@ const Register = () => {
               <label className="block text-sm font-bold text-gray-600 font-cant mb-1">Name</label>
               <input
                 type="text"
+                name='name'
                 placeholder="Your username"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
               />
@@ -32,6 +53,7 @@ const Register = () => {
               <label className="block text-sm font-bold text-gray-600 font-cant mb-1">Email</label>
               <input
                 type="email"
+                name='email'
                 placeholder="Your email"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
               />
@@ -52,6 +74,7 @@ const Register = () => {
               <label className="block text-sm font-bold text-gray-600 font-cant mb-1">Confirm Password</label>
               <input
                 type="password"
+                name='password'
                 placeholder="Confirm your password"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
               />
