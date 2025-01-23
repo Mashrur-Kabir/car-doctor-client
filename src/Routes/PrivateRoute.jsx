@@ -34,10 +34,13 @@ export default PrivateRoute;
 
 in private route:
 
-the location.pathname is "/item/123", the page you wanted to go.
-so "state={location.pathname}" stores the page you were trying to access (e.g., /item/123) in the state of the navigation.
-When you are redirected from the PrivateRoute to the login page using the <Navigate> component, it sends along the location.state(/item/123..)
-so, On the login page, you can access this state using useLocation(). When you consolelog the location object, you'll see that the state set to /item/123
+the location.pathname is, suppose- "/checkout/123", the page you wanted to go.
+so "state={location.pathname}" stores the page you were trying to access (/checkout/123) in the state of the navigation.
+When you are redirected from the PrivateRoute to the login page using the <Navigate> component, it sends along the location.state(/checkout/123..)
+so, On the login page, you can access this state using useLocation(). When you consolelog the location object, you'll see that the state set to /checkout/123
 hence, when we login successfully from there, it takes you back to page you intended to visit
 
+
+now, client side secured but in inspect > network > *searching for server api request > you can steal url and infiltrate the api
+so, we need Json Web Token (JWT)
 */

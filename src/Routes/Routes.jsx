@@ -31,7 +31,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/checkout/:id',
-                element: <CheckOut></CheckOut>,
+                element: <PrivateRoute><CheckOut/></PrivateRoute>,
                 // load the id-related service with needed information (set by options in backend)
                 loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`) //this id should be the same name as the param name you used with route ('/checkout/:id')           }
             },

@@ -3,6 +3,7 @@ import loginAni from '../../assets/animations/loginAni.json'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import axios from "axios";
 const Login = () => {
 
   const { signIn } = useContext(AuthContext)
@@ -20,13 +21,31 @@ const Login = () => {
     signIn(email, password)
     .then((res) => {
       console.log("User signed in successfully!", res.user);
-      navigate(location?.state ? location.state : '/');
+      //get access token
+      const user = {email} // for access token
+      axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+      .then(res => {
+        console.log(res.data)
+        if(res.data.success){
+          navigate(location?.state ? location.state : '/');
+        }
+      })
     })
     .catch((error) => {
       console.error("Error signing in user:", error);
     });
     
   }
+
+  /*
+  Client-Side (withCredentials: true):
+  This tells the browser to include credentials (like cookies or authorization headers) in the request sent to the server.
+
+  Server-Side (credentials: true in CORS options):
+  This tells the server to allow credentials (cookies, authorization headers) to be sent from the client in cross-origin requests.
+  
+  If credentials: true is not set on the server, the browser will block the request even if withCredentials: true is used on the client side. Both need to be enabled to allow secure handling of cookies or tokens for cross-origin requests.
+  */
 
   return (
     <div className="my-20 flex items-center justify-center">

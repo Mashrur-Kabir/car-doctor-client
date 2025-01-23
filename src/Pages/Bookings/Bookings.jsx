@@ -3,24 +3,25 @@ import checkout from "../../assets/images/checkout.png";
 import { AuthContext } from "../../providers/AuthProvider";
 import edit from '../../assets/icons/writing.png'
 import del from '../../assets/icons/paper-bin.png'
+import axios from "axios";
 
 const Bookings = () => {
     const { user } = useContext(AuthContext);
     const [bookings, setBookings] = useState([]);
 
+    const url = `http://localhost:5000/bookings?email=${user?.email}`; //if there's another email it wont show them the bookings. because your token has your booking info. not someone else's. so you cant try and access other users's info.
     useEffect(() => {
-        if (user?.email) {
-            const url = `http://localhost:5000/bookings?email=${user.email}`;
-            fetch(url)
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.length > 0) {
-                        setBookings(data);
-                    }
-                })
-                .catch((error) => console.error("Error fetching bookings:", error));
-        }
-    }, [user?.email]);
+        axios.get(url, {withCredentials: true})
+        .then((response) => {
+            const data = response.data; // because Axios automatically parses JSON
+            if (data.length > 0) {
+            setBookings(data); // Update state with the data
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching bookings:", error);
+        });
+    }, [url]);
 
     // Handle Delete Click
     const handleDelete = (id) => {

@@ -38,11 +38,11 @@ const ServicesCard = ({ service }) => {
 
 ServicesCard.propTypes = {
   service: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired,
-  }),
+    price: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ServicesCard;
