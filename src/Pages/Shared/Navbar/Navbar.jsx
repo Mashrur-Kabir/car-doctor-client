@@ -1,14 +1,17 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import car from '../../../assets/icons/car.png';
 import shop from '../../../assets/icons/shop.png';
 import search from '../../../assets/icons/magnifier.png';
 import './Navbar.css';
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../../providers/AuthProvider";
+import useAuth from "../../../hooks/useAuth";
+//import { AuthContext } from "../../../providers/AuthProvider";
 
 const Navbar = () => {
+
     const [isOpen, setIsOpen] = useState(false);
-    const { user, setUser, logOut } = useContext(AuthContext);
+    //const { user, setUser, logOut } = useContext(AuthContext);
+    const {user, setUser, logOut} = useAuth();
 
     const handleLogout = () => {
         logOut()

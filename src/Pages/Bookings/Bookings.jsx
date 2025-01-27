@@ -3,25 +3,35 @@ import checkout from "../../assets/images/checkout.png";
 import { AuthContext } from "../../providers/AuthProvider";
 import edit from '../../assets/icons/writing.png'
 import del from '../../assets/icons/paper-bin.png'
-import axios from "axios";
+//import axios from "axios"; //no need, check custom hook 'useAxiosSecure.jsx';
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Bookings = () => {
     const { user } = useContext(AuthContext);
     const [bookings, setBookings] = useState([]);
 
-    const url = `http://localhost:5000/bookings?email=${user?.email}`; //if there's another email it wont show them the bookings. because your token has your booking info. not someone else's. so you cant try and access other users's info.
+    const axiosSecure = useAxiosSecure(); //custom hook
+
+    //old method:
+    //const url = `http://localhost:5000/bookings?email=${user?.email}`; //if there's another email it wont show them the bookings. because your token has your booking info. not someone else's. so you cant try and access other users's info.
+    
+    //DRY method by custom hooks:
+    const url = `/bookings?email=${user?.email}`;
+    
     useEffect(() => {
-        axios.get(url, {withCredentials: true})
+        //old
+        // axios.get(url, {withCredentials: true})
+
+        //custom hooks
+        axiosSecure.get(url)
         .then((response) => {
             const data = response.data; // because Axios automatically parses JSON
-            if (data.length > 0) {
             setBookings(data); // Update state with the data
-            }
         })
         .catch((error) => {
-            console.error("Error fetching bookings:", error);
+            console.log("Error fetching bookings:", error);
         });
-    }, [url]);
+    }, [url, axiosSecure]);
 
     // Handle Delete Click
     const handleDelete = (id) => {
@@ -155,3 +165,11 @@ const Bookings = () => {
 
 export default Bookings;
 
+/*
+The need to use JWT for api in server-side.
+this booking api is initially open to all users
+this means that anyone can access the booking API by copying request url from your browser
+
+To protect the booking API, you would need to add JWT middleware to your Express server.
+You can look it up in the server file of this project to look at the implementation
+*/

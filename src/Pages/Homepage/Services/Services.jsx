@@ -1,16 +1,21 @@
-import { useEffect } from "react";
-import { useState } from "react";
+// import { useEffect } from "react";
+// import { useState } from "react";
+import useServices from "../../../hooks/useServices";
 import ServicesCard from "./ServicesCard";
 
 const Services = () => {
-  const [services, setServices] = useState([]);
 
-  // Fetching services data from an local API
-  useEffect(() => {
-    fetch("http://localhost:5000/services")
-      .then((res) => res.json())
-      .then((data) => setServices(data));
-  }, []);
+  // used hook for the below commented out code 
+  // const [services, setServices] = useState([]);
+
+  // // Fetching services data from an local API
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/services")
+  //     .then((res) => res.json())
+  //     .then((data) => setServices(data));
+  // }, []);
+
+  const services = useServices(); // <--custom hook
 
   return (
     <div className="mb-20">
