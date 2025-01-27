@@ -9,38 +9,47 @@ import Bookings from "../Pages/Bookings/Bookings";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      children: [
-            {
-                path: "/",
-                element: <Home></Home>,
-            },
-            {
-                path: '/login',
-                element: <Login></Login>
-            },
-            {
-                path: '/register',
-                element: <Register></Register>
-            },
-            {
-                path: '/addService',
-                element: <AddService></AddService>
-            },
-            {
-                path: '/checkout/:id',
-                element: <PrivateRoute><CheckOut/></PrivateRoute>,
-                // load the id-related service with needed information (set by options in backend)
-                loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`) //this id should be the same name as the param name you used with route ('/checkout/:id')           }
-            },
-            {
-                path: '/bookings',
-                element: <PrivateRoute><Bookings/></PrivateRoute>
-            }
-        ],
-    },
-  ]);
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
+      {
+        path: "/addService",
+        element: <AddService></AddService>,
+      },
+      {
+        path: "/checkout/:id",
+        element: (
+          <PrivateRoute>
+            <CheckOut />
+          </PrivateRoute>
+        ),
+        // load the id-related service with needed information (set by options in backend)
+        loader: ({ params }) =>
+          fetch(`car-doctor-server-ten-mauve.vercel.app/services/${params.id}`), //this id should be the same name as the param name you used with route ('/checkout/:id')           }
+      },
+      {
+        path: "/bookings",
+        element: (
+          <PrivateRoute>
+            <Bookings />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+]);
 
-  export default router;
+export default router;

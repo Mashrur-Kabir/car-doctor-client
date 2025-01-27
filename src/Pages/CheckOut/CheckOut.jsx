@@ -1,19 +1,19 @@
-import { useLoaderData } from 'react-router-dom';
-import checkout from '../../assets/images/checkout.png';
-import 'aos/dist/aos.css';
-import { useState, useEffect, useContext } from 'react';
-import AOS from 'aos';
-import { AuthContext } from '../../providers/AuthProvider';
+import { useLoaderData } from "react-router-dom";
+import checkout from "../../assets/images/checkout.png";
+import "aos/dist/aos.css";
+import { useState, useEffect, useContext } from "react";
+import AOS from "aos";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const CheckOut = () => {
   const service = useLoaderData(); // Loading the card with needed information for the checkout page
   const { title, description, price, img, _id } = service;
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
 
   useEffect(() => {
-    AOS.init({ duration: 800, easing: 'ease-in-out' });
+    AOS.init({ duration: 800, easing: "ease-in-out" });
   }, []);
 
   const toggleDescription = () => {
@@ -30,39 +30,38 @@ const CheckOut = () => {
     const date = form?.date.value;
     const message = form?.message.value;
     const booking = {
-        customerName: name,
-        email,
-        phone,
-        img,
-        bookingDate: date,
-        serviceTitle: title,
-        servicePrice: price,
-        serviceId: _id,
-        customerNotice: message,
-    }
+      customerName: name,
+      email,
+      phone,
+      img,
+      bookingDate: date,
+      serviceTitle: title,
+      servicePrice: price,
+      serviceId: _id,
+      customerNotice: message,
+    };
     console.log(name, email, phone, date, message, booking);
 
     //send this to backend server and database
-    fetch('http://localhost:5000/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(booking),
+    fetch("car-doctor-server-ten-mauve.vercel.app/bookings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(booking),
     })
-    .then(res => res.json())
-    .then(data => {
-        console.log('Booking confirmed successfully:', data);
-        if(data.insertedId){
-            alert('Booking confirmed successfully!');
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Booking confirmed successfully:", data);
+        if (data.insertedId) {
+          alert("Booking confirmed successfully!");
         }
         // Reset form
         form.reset();
-    })
-    .catch(err => {
-        console.error('Error Booking Service:', err);
+      })
+      .catch((err) => {
+        console.error("Error Booking Service:", err);
         // Reset form
         form.reset();
-    })
-
+      });
   };
 
   return (
@@ -71,9 +70,11 @@ const CheckOut = () => {
       <div
         className="relative bg-cover bg-center h-48 md:h-64 lg:h-80 rounded-lg"
         style={{ backgroundImage: `url(${checkout})` }}
-      >   
+      >
         <div className="absolute rounded-lg inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-white font-mont">Check Out</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-white font-mont">
+            Check Out
+          </h1>
           <div className="mt-4 px-4 py-1 bg-lime-500 cursor-pointer hover:bg-black transition duration-200 text-white font-cant font-semibold text-sm md:text-base rounded-md shadow-md">
             Home / Checkout
           </div>
@@ -86,19 +87,22 @@ const CheckOut = () => {
         data-aos="fade-up"
       >
         {/* Image */}
-        <div className="relative overflow-hidden rounded-lg group"
-             data-aos='fade-right'
+        <div
+          className="relative overflow-hidden rounded-lg group"
+          data-aos="fade-right"
         >
-            <img
-                src={img}
-                alt={title}
-                className="w-full h-full rounded-lg transform transition-transform duration-300 group-hover:scale-110"
-            />
+          <img
+            src={img}
+            alt={title}
+            className="w-full h-full rounded-lg transform transition-transform duration-300 group-hover:scale-110"
+          />
         </div>
 
         {/* Details */}
         <div className="pt-8" data-aos="fade-left">
-          <h2 className="text-2xl font-bold font-mont text-gray-800">{title}</h2>
+          <h2 className="text-2xl font-bold font-mont text-gray-800">
+            {title}
+          </h2>
           <p className="text-lg font-semibold text-lime-600 mt-2">
             Price: <span className="text-gray-800">${price}</span>
           </p>
@@ -110,11 +114,11 @@ const CheckOut = () => {
               onClick={toggleDescription}
             >
               <span>Description</span>
-              <span className="text-lg">{isDescriptionOpen ? '▲' : '▼'}</span>
+              <span className="text-lg">{isDescriptionOpen ? "▲" : "▼"}</span>
             </div>
             <p
               className={`text-gray-600 text-justify font-cant mt-2 md:block ${
-                isDescriptionOpen ? 'block' : 'hidden'
+                isDescriptionOpen ? "block" : "hidden"
               }`}
             >
               {description}
@@ -125,11 +129,16 @@ const CheckOut = () => {
 
       {/* Form Section */}
       <div className="flex justify-center mt-12 font-mont">
-        <form onSubmit={handleBooking} className="bg-gray-100 shadow-lg rounded-lg p-8 w-full max-w-4xl space-y-6">
+        <form
+          onSubmit={handleBooking}
+          className="bg-gray-100 shadow-lg rounded-lg p-8 w-full max-w-4xl space-y-6"
+        >
           {/* Input Fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-bold text-gray-600 mb-2">Name</label>
+              <label className="block text-sm font-bold text-gray-600 mb-2">
+                Name
+              </label>
               <input
                 required
                 type="text"
@@ -140,7 +149,9 @@ const CheckOut = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-600 mb-2">Date of Booking</label>
+              <label className="block text-sm font-bold text-gray-600 mb-2">
+                Date of Booking
+              </label>
               <input
                 required
                 type="date"
@@ -150,7 +161,9 @@ const CheckOut = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-600 mb-2">Your Phone</label>
+              <label className="block text-sm font-bold text-gray-600 mb-2">
+                Your Phone
+              </label>
               <input
                 type="tel"
                 name="phone"
@@ -159,7 +172,9 @@ const CheckOut = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-600 mb-2">Your Email</label>
+              <label className="block text-sm font-bold text-gray-600 mb-2">
+                Your Email
+              </label>
               <input
                 required
                 type="email"
@@ -173,7 +188,9 @@ const CheckOut = () => {
 
           {/* Textarea for Message */}
           <div>
-            <label className="block text-sm font-bold text-gray-600 mb-2">Your Message</label>
+            <label className="block text-sm font-bold text-gray-600 mb-2">
+              Your Message
+            </label>
             <textarea
               name="message"
               placeholder="Your Message"

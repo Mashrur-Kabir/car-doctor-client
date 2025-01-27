@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "car-doctor-server-ten-mauve.vercel.app",
   withCredentials: true,
 });
 const useAxiosSecure = () => {
@@ -12,20 +12,22 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosSecure.interceptors.response.use((res) => {
+    axiosSecure.interceptors.response.use(
+      (res) => {
         return res;
-      }, (err) => {
+      },
+      (err) => {
         // the expiresIn option when generating token needs to be set to like.. 1/2/3 seconds to catch this error
         console.log("error tracked in the interceptor: ", err.response);
         if (err.response.status === 401 || err.response.status === 403) {
           console.log("logout the user");
-            logOut()
+          logOut()
             .then(() => {
-                console.log("User signed out successfully!");
-                navigate('/login');
+              console.log("User signed out successfully!");
+              navigate("/login");
             })
             .catch((err) => {
-                console.log("Failed to sign out user:", err);
+              console.log("Failed to sign out user:", err);
             });
         }
       }
