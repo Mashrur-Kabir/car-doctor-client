@@ -40,7 +40,7 @@ const CheckOut = () => {
       serviceId: _id,
       customerNotice: message,
     };
-    console.log(name, email, phone, date, message, booking);
+    //console.log(name, email, phone, date, message, booking);
 
     //send this to backend server and database
     fetch("car-doctor-server-ten-mauve.vercel.app/bookings", {

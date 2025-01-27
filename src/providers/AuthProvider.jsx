@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
         // User is logged in
         const loggedUser = { email: currentUser.email };
         setUser(currentUser);
-        console.log("User logged in: ", currentUser.email);
+        //console.log("User logged in: ", currentUser.email);
 
         // Issue a token
         axios
@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
           })
           .then((res) => {
             if (res.data.success) {
-              console.log("Token response: ", res.data);
+              //console.log("Token response: ", res.data);
             } else {
               console.log("Error: ", res.data.message);
             }
@@ -63,8 +63,8 @@ const AuthProvider = ({ children }) => {
             {},
             { withCredentials: true }
           )
-          .then((res) => {
-            console.log("Token deleted: ", res.data);
+          .then(() => {
+            //console.log("Token deleted: ", res.data); 
           });
       }
       setLoading(false); // Always set loading to false
